@@ -17,8 +17,8 @@ cd Vendi-Score
 pip install -e .
 ```
 
-4. Back to example directory, try it!
+4. Back to root directory, try it!
 ```bash
-cd ../example
-python text_embedding.py
+cd ../
+python ./example/text_embedding.py
 ```

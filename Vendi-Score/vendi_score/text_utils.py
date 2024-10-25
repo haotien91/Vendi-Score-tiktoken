@@ -270,11 +270,36 @@ def embedding_vendi_score(
     return vendi.score_dual(X)
 
 
-def tiktoken_vendi_score(sents):
+def calculate_nonzero_stats(X):
+    """
+    Calculate the average number of non-zero elements per row and its standard deviation.
+
+    Parameters:
+    X (np.array): A 2D numpy array with zero-padding applied.
+
+    Returns:
+    tuple: (average_non_zero, std_dev_non_zero)
+    """
+    # 計算每一筆數據的非零元素數量
+    non_zero_counts = np.count_nonzero(X, axis=1)
+    
+    # 計算非零元素的平均值與標準差
+    average_non_zero = np.mean(non_zero_counts)
+    std_dev_non_zero = np.std(non_zero_counts)
+
+    return average_non_zero, std_dev_non_zero
+
+def tiktoken_vendi_score(sents, DatasetName):
     X, mask = get_tiktoken_embeddings(sents)
 
     n, d = X.shape
+
+    average_non_zero, std_dev_non_zero = calculate_nonzero_stats(X)
+
+    print(f"DatasetName: {DatasetName}. Average Non-Zero length: {average_non_zero:.02f}, STD: {std_dev_non_zero:.02f}")
+
     if n < d:
         return vendi.score_X(X)
+
     return vendi.score_dual_sparse(X)
 

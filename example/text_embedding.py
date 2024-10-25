@@ -20,15 +20,15 @@ def read_jsonl(file_path):
             outputs.append(data['messages'][2]['content'])
     return prompts, outputs
 
-def calculate_vendi(texts):
-    return text_utils.tiktoken_vendi_score(texts)
+def calculate_vendi(texts, DatasetName):
+    return text_utils.tiktoken_vendi_score(texts, DatasetName)
 
 def main():
     jsonl_path = 'example/nstc_od_簽_finetune_format_charlessnp_train.jsonl'
     prompts, outputs = read_jsonl(jsonl_path)
 
-    vendi_prompts = calculate_vendi(prompts)
-    vendi_outputs = calculate_vendi(outputs)
+    vendi_prompts = calculate_vendi(prompts, "Prompts")
+    vendi_outputs = calculate_vendi(outputs, "Outputs")
 
     print(f"Vendi score for prompts: {vendi_prompts:.02f}")
     print(f"Vendi score for outputs: {vendi_outputs:.02f}")
