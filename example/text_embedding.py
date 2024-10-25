@@ -24,14 +24,14 @@ def calculate_vendi(texts):
     return text_utils.tiktoken_vendi_score(texts)
 
 def main():
-    jsonl_path = 'TestScript/nstc_od_簽_finetune_format_charlessnp_train.jsonl'
+    jsonl_path = 'example/nstc_od_簽_finetune_format_charlessnp_train.jsonl'
     prompts, outputs = read_jsonl(jsonl_path)
 
     vendi_prompts = calculate_vendi(prompts)
     vendi_outputs = calculate_vendi(outputs)
 
-    print(f"Vendi score for prompts: {vendi_prompts}")
-    print(f"Vendi score for outputs: {vendi_outputs}")
+    print(f"Vendi score for prompts: {vendi_prompts:.02f}")
+    print(f"Vendi score for outputs: {vendi_outputs:.02f}")
 
 if __name__ == "__main__":
     main()
